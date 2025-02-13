@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
-
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF1F1F39), 
+      backgroundColor: Color(0xFF1F1F39),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -17,6 +16,7 @@ class HomeScreen extends StatelessWidget {
             color: Colors.white,
           ),
         ),
+        centerTitle: false,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -35,8 +35,7 @@ class HomeScreen extends StatelessWidget {
                   hintText: 'ค้นหาด้วยวัตถุดิบ',
                   hintStyle: TextStyle(color: Colors.white54),
                   prefixIcon: Icon(Icons.search, color: Colors.white),
-                  suffixIcon:
-                      Icon(Icons.filter_list, color: Colors.white),
+                  suffixIcon: Icon(Icons.filter_list, color: Colors.white),
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.all(16),
                 ),

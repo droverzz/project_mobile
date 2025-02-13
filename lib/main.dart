@@ -31,7 +31,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
     HomeScreen(),
     BookMarkScreen(),
     SearchCameraScreen(),
-    toDoList(),
+    ToDoList(),
     SettingsScreen(),
   ];
 
