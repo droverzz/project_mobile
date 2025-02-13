@@ -52,10 +52,9 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
         unselectedItemColor: Color(0xFFB8B8D2),
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'หน้าแรก'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.bookmark), label: 'บันทึกเมนู'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'ค้นหา'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'โปรไฟล์'),
+          BottomNavigationBarItem(icon: Icon(Icons.bookmark), label: 'บันทึกเมนู'),
+          BottomNavigationBarItem(icon: Icon(Icons.photo_camera), label: 'สกแกนวัตถุดิบ'),
+          BottomNavigationBarItem(icon: Icon(Icons.format_list_numbered), label: 'วางแผน'),
           BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'ตั้งค่า'),
         ],
         currentIndex: _selectedIndex,
