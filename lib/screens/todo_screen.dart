@@ -16,7 +16,7 @@ class _ToDoListState extends State<ToDoList> {
   void _addTask() {
     final theme = Theme.of(context);
     TextEditingController controller = TextEditingController();
-    
+
     showDialog(
       context: context,
       builder: (context) {
@@ -25,14 +25,16 @@ class _ToDoListState extends State<ToDoList> {
           backgroundColor: theme.dialogBackgroundColor,
           title: Text(
             'เพิ่มวัตถุดิบของฉัน',
-            style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+            style: theme.textTheme.titleMedium
+                ?.copyWith(fontWeight: FontWeight.bold),
           ),
           content: TextField(
             controller: controller,
             style: theme.textTheme.bodyLarge,
             decoration: InputDecoration(
               hintText: 'พิมพ์ชื่อวัตถุดิบ',
-              hintStyle: theme.textTheme.bodyMedium?.copyWith(color: Colors.white54),
+              hintStyle:
+                  theme.textTheme.bodyMedium?.copyWith(color: Colors.white54),
             ),
           ),
           actions: [
@@ -47,7 +49,9 @@ class _ToDoListState extends State<ToDoList> {
                 }
                 Navigator.pop(context);
               },
-              child: Text('เพิ่ม', style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold)),
+              child: Text('เพิ่ม',
+                  style: theme.textTheme.bodyLarge
+                      ?.copyWith(fontWeight: FontWeight.bold)),
             ),
           ],
         );
@@ -82,11 +86,11 @@ class _ToDoListState extends State<ToDoList> {
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: theme.appBarTheme.backgroundColor ?? Colors.transparent,
+        backgroundColor: theme.appBarTheme.backgroundColor,
         elevation: 0,
         title: Text(
           'แผนของฉัน',
-          style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+          style: theme.textTheme.headlineSmall, // ใช้ theme text
         ),
         centerTitle: false,
       ),
@@ -97,7 +101,9 @@ class _ToDoListState extends State<ToDoList> {
                 children: [
                   Text('ยังไม่มีแผนการ', style: theme.textTheme.bodyLarge),
                   SizedBox(height: 8),
-                  Text('คุณยังไม่เพิ่มแผนใดๆ ที่ต้องทำ', style: theme.textTheme.bodyMedium?.copyWith(color: Colors.grey)),
+                  Text('คุณยังไม่เพิ่มแผนใดๆ ที่ต้องทำ',
+                      style: theme.textTheme.bodyMedium
+                          ?.copyWith(color: Colors.grey)),
                 ],
               ),
             )
@@ -107,7 +113,8 @@ class _ToDoListState extends State<ToDoList> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   if (tasks.isNotEmpty) ...[
-                    Text('ต้องทำ (${tasks.length})', style: theme.textTheme.titleMedium),
+                    Text('ต้องทำ (${tasks.length})',
+                        style: theme.textTheme.titleMedium),
                     SizedBox(height: 8),
                     ...tasks.asMap().entries.map((entry) {
                       int index = entry.key;
@@ -117,7 +124,8 @@ class _ToDoListState extends State<ToDoList> {
                         child: ListTile(
                           title: Text(task, style: theme.textTheme.bodyLarge),
                           leading: IconButton(
-                            icon: Icon(Icons.radio_button_unchecked, color: theme.iconTheme.color),
+                            icon: Icon(Icons.radio_button_unchecked,
+                                color: theme.iconTheme.color),
                             onPressed: () => _toggleTask(index),
                           ),
                         ),
@@ -126,7 +134,8 @@ class _ToDoListState extends State<ToDoList> {
                   ],
                   SizedBox(height: 16),
                   if (completedTasks.isNotEmpty) ...[
-                    Text('สำเร็จ (${completedTasks.length})', style: theme.textTheme.titleMedium),
+                    Text('สำเร็จ (${completedTasks.length})',
+                        style: theme.textTheme.titleMedium),
                     SizedBox(height: 8),
                     ...completedTasks.asMap().entries.map((entry) {
                       int index = entry.key;

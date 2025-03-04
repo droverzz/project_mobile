@@ -5,12 +5,18 @@ import '../theme/theme_provider.dart';
 class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final themeProvider =
-        Provider.of<ThemeProvider>(context); // ใช้ listen: true
+    final theme = Theme.of(context);
 
     return Scaffold(
+      backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
-        title: Text('ตั้งค่า'),
+        backgroundColor: theme.appBarTheme.backgroundColor,
+        elevation: 0,
+        title: Text(
+          'ตั้งค่า',
+          style: theme.textTheme.headlineSmall, // ใช้ theme text
+        ),
+        centerTitle: false,
       ),
       body: Column(
         children: [
