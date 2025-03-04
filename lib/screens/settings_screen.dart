@@ -37,6 +37,7 @@ class SettingsScreen extends StatelessWidget {
       trailing: isThemeSwitch
           ? Switch(
               value: themeProvider.isDarkMode,
+              activeColor: themeProvider.isDarkMode ? Colors.white : Color(0xFFA31621),
               onChanged: (value) {
                 themeProvider.toggleTheme();
               },

@@ -12,6 +12,7 @@ class ConfirmDeleteDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return AlertDialog(
       title: Text('ยืนยันการลบ'),
       content: Text.rich(
@@ -29,14 +30,16 @@ class ConfirmDeleteDialog extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: Text('ยกเลิก'),
+          child: Text('ยกเลิก', style: theme.textTheme.bodyLarge),
         ),
         TextButton(
           onPressed: () {
             Navigator.pop(context);
             onConfirm();
           },
-          child: Text('ลบ', style: TextStyle(color: Colors.red)),
+          child: Text('ลบ',
+              style: theme.textTheme.bodyLarge
+                  ?.copyWith(fontWeight: FontWeight.bold)),
         ),
       ],
     );

@@ -7,18 +7,22 @@ class AddTaskDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     TextEditingController controller = TextEditingController();
 
     return AlertDialog(
       title: Text('เพิ่มแผนของฉัน'),
       content: TextField(
         controller: controller,
-        decoration: InputDecoration(hintText: 'พิมพ์ชื่อแผนที่ต้องทำ'),
+        decoration: InputDecoration(
+          hintText: 'พิมพ์ชื่อใหม่',
+          hintStyle: TextStyle(color: Colors.grey[400]), // สีที่อ่อนลง
+        ),
       ),
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: Text('ยกเลิก'),
+          child: Text('ยกเลิก', style: theme.textTheme.bodyLarge),
         ),
         TextButton(
           onPressed: () {
@@ -27,7 +31,9 @@ class AddTaskDialog extends StatelessWidget {
               Navigator.pop(context);
             }
           },
-          child: Text('เพิ่ม'),
+          child: Text('เพิ่ม',
+              style: theme.textTheme.bodyLarge
+                  ?.copyWith(fontWeight: FontWeight.bold)),
         ),
       ],
     );
