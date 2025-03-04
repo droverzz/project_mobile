@@ -11,26 +11,33 @@ class _BookmarkPageState extends State<BookMarkScreen> {
   List<String> playlists = [];
 
   void _addPlaylist() {
+    final theme = Theme.of(context);
     TextEditingController controller = TextEditingController();
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: Color(0xFF1F1F39),
+        backgroundColor:
+            // ignore: deprecated_member_use
+            theme.dialogBackgroundColor, 
         title: Text(
           "ตั้งชื่อ Playlist",
-          style: TextStyle(
-              fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+          style: theme.textTheme.titleMedium
+              ?.copyWith(fontWeight: FontWeight.bold),
         ),
         content: TextField(
           controller: controller,
-          style: TextStyle(fontSize: 18, color: Colors.white),
-          decoration: InputDecoration(hintText: "ชื่อ Playlist"),
+          style: theme.textTheme.bodyLarge,
+          decoration: InputDecoration(
+            hintText: "ชื่อ Playlist",
+            hintStyle:
+                theme.textTheme.bodyMedium?.copyWith(color: Colors.white54),
+          ),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text("ยกเลิก",
-                style: TextStyle(fontSize: 18, color: Colors.white)),
+            child: Text("ยกเลิก", style: theme.textTheme.bodyLarge),
           ),
           TextButton(
             onPressed: () {
@@ -40,7 +47,8 @@ class _BookmarkPageState extends State<BookMarkScreen> {
               }
             },
             child: Text("บันทึก",
-                style: TextStyle(fontSize: 18, color: Colors.white)),
+                style: theme.textTheme.bodyLarge
+                    ?.copyWith(fontWeight: FontWeight.bold)),
           ),
         ],
       ),
@@ -48,31 +56,33 @@ class _BookmarkPageState extends State<BookMarkScreen> {
   }
 
   void _editPlaylist(int index) {
+    final theme = Theme.of(context);
     TextEditingController controller =
         TextEditingController(text: playlists[index]);
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: Color(0xFF1F1F39),
+        backgroundColor: theme.dialogBackgroundColor,
         title: Text(
           "แก้ไขชื่อ Playlist",
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
+          style: theme.textTheme.titleMedium
+              ?.copyWith(fontWeight: FontWeight.bold),
         ),
         content: TextField(
-            controller: controller,
-            style: TextStyle(fontSize: 18, color: Colors.white),
-            decoration: InputDecoration(hintText: "ชื่อ Playlist")),
+          controller: controller,
+          style: theme.textTheme.bodyLarge,
+          decoration: InputDecoration(
+            hintText: "ชื่อ Playlist",
+            hintStyle:
+                theme.textTheme.bodyMedium?.copyWith(color: Colors.white54),
+          ),
+        ),
         actions: [
           TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text(
-                "ยกเลิก",
-                style: TextStyle(fontSize: 18, color: Colors.white),
-              )),
+            onPressed: () => Navigator.pop(context),
+            child: Text("ยกเลิก", style: theme.textTheme.bodyLarge),
+          ),
           TextButton(
             onPressed: () {
               if (controller.text.isNotEmpty) {
@@ -80,10 +90,9 @@ class _BookmarkPageState extends State<BookMarkScreen> {
                 Navigator.pop(context);
               }
             },
-            child: Text(
-              "บันทึก",
-              style: TextStyle(fontSize: 18, color: Colors.white),
-            ),
+            child: Text("บันทึก",
+                style: theme.textTheme.bodyLarge
+                    ?.copyWith(fontWeight: FontWeight.bold)),
           ),
         ],
       ),
@@ -96,16 +105,17 @@ class _BookmarkPageState extends State<BookMarkScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context); // ใช้ Theme ของแอป
+
     return Scaffold(
-      backgroundColor: Color(0xFF1F1F39),
+      backgroundColor: theme.scaffoldBackgroundColor, // ใช้สีของ theme
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: theme.appBarTheme.backgroundColor, // ใช้สี app bar
         elevation: 0,
-        title: Text("บันทึกเมนู",
-            style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.white)),
+        title: Text(
+          "บันทึกเมนู",
+          style: theme.textTheme.headlineSmall, // ใช้ theme text
+        ),
         centerTitle: false,
       ),
       body: Padding(
@@ -115,11 +125,16 @@ class _BookmarkPageState extends State<BookMarkScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('ไม่มีรายการบันทึก',
-                        style: TextStyle(fontSize: 20, color: Colors.white)),
+                    Text(
+                      'ไม่มีรายการบันทึก',
+                      style: theme.textTheme.bodyLarge, // ใช้ text theme
+                    ),
                     SizedBox(height: 8),
-                    Text('คุณยังไม่ได้บันทึกรายการอาหาร',
-                        style: TextStyle(fontSize: 16, color: Colors.grey)),
+                    Text(
+                      'คุณยังไม่ได้บันทึกรายการอาหาร',
+                      style: theme.textTheme.bodyMedium
+                          ?.copyWith(color: theme.hintColor),
+                    ),
                   ],
                 ),
               )
@@ -135,7 +150,7 @@ class _BookmarkPageState extends State<BookMarkScreen> {
                   return Container(
                     padding: EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: Colors.grey[300],
+                      color: theme.cardColor, // ใช้สีจาก theme
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Stack(
@@ -143,17 +158,16 @@ class _BookmarkPageState extends State<BookMarkScreen> {
                         Center(
                           child: Text(
                             playlists[index],
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
+                            style: theme.textTheme.bodyLarge
+                                ?.copyWith(fontWeight: FontWeight.bold),
                             textAlign: TextAlign.center,
                           ),
                         ),
                         Positioned(
                           right: 5,
                           top: 5,
-                          // หมุน 90 องศา
                           child: PopupMenuButton<String>(
-                            color: Color(0xFF363636),
+                            color: theme.cardColor, // ใช้สีจาก theme
                             onSelected: (value) {
                               if (value == "edit") _editPlaylist(index);
                               if (value == "delete") _deletePlaylist(index);
@@ -164,15 +178,10 @@ class _BookmarkPageState extends State<BookMarkScreen> {
                                 child: Row(
                                   children: [
                                     Icon(Icons.edit,
-                                        color: Colors.white,
-                                        size: 20), // ไอคอนแก้ไข
-                                    SizedBox(
-                                        width:
-                                            8), // ระยะห่างระหว่างไอคอนกับข้อความ
-                                    Text(
-                                      "แก้ไขชื่อ",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
+                                        color: theme.iconTheme.color, size: 20),
+                                    SizedBox(width: 8),
+                                    Text("แก้ไขชื่อ",
+                                        style: theme.textTheme.bodyMedium),
                                   ],
                                 ),
                               ),
@@ -181,42 +190,16 @@ class _BookmarkPageState extends State<BookMarkScreen> {
                                 child: Row(
                                   children: [
                                     Icon(Icons.delete,
-                                        color: Colors.white,
-                                        size: 20), // ไอคอนลบ
-                                    SizedBox(
-                                        width:
-                                            8), // ระยะห่างระหว่างไอคอนกับข้อความ
-                                    Text(
-                                      "ลบ",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
+                                        color: theme.iconTheme.color, size: 20),
+                                    SizedBox(width: 8),
+                                    Text("ลบ",
+                                        style: theme.textTheme.bodyMedium),
                                   ],
                                 ),
                               ),
                             ],
-                            icon: Icon(Icons.more_vert, color: Colors.black),
-                          ),
-                        ),
-                        Positioned(
-                          right: 5,
-                          bottom: 5,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 4),
-                            decoration: BoxDecoration(
-                              color: Colors.black,
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(Icons.list, color: Colors.white, size: 18),
-                                SizedBox(width: 4),
-                                Text("0",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 16)),
-                              ],
-                            ),
+                            icon: Icon(Icons.more_vert,
+                                color: theme.iconTheme.color),
                           ),
                         ),
                       ],
@@ -229,8 +212,8 @@ class _BookmarkPageState extends State<BookMarkScreen> {
         onPressed: _addPlaylist,
         shape: CircleBorder(),
         elevation: 10,
-        backgroundColor: Colors.redAccent,
-        child: Icon(Icons.add, color: Colors.white, size: 36),
+        backgroundColor: theme.primaryColor, // ใช้สี primary จาก theme
+        child: Icon(Icons.add, color: theme.colorScheme.onPrimary, size: 36),
       ),
     );
   }

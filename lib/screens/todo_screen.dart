@@ -14,46 +14,40 @@ class _ToDoListState extends State<ToDoList> {
 
   /// หน้าต่างเพิ่มรายการวัตถุดิบ
   void _addTask() {
+    final theme = Theme.of(context);
     TextEditingController controller = TextEditingController();
+    
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          backgroundColor: Color(0xFF1F1F39),
+          // ignore: deprecated_member_use
+          backgroundColor: theme.dialogBackgroundColor,
           title: Text(
             'เพิ่มวัตถุดิบของฉัน',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
+            style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
           ),
           content: TextField(
             controller: controller,
-            style: TextStyle(fontSize: 18, color: Colors.white),
-            decoration: InputDecoration(hintText: 'พิมพ์ชื่อวัตถุดิบ'),
+            style: theme.textTheme.bodyLarge,
+            decoration: InputDecoration(
+              hintText: 'พิมพ์ชื่อวัตถุดิบ',
+              hintStyle: theme.textTheme.bodyMedium?.copyWith(color: Colors.white54),
+            ),
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text(
-                'ยกเลิก',
-                style: TextStyle(fontSize: 18, color: Colors.white),
-              ),
+              child: Text('ยกเลิก', style: theme.textTheme.bodyLarge),
             ),
             TextButton(
               onPressed: () {
                 if (controller.text.isNotEmpty) {
-                  setState(() {
-                    tasks.add(controller.text);
-                  });
+                  setState(() => tasks.add(controller.text));
                 }
                 Navigator.pop(context);
               },
-              child: Text(
-                'เพิ่ม',
-                style: TextStyle(fontSize: 18, color: Colors.white),
-              ),
+              child: Text('เพิ่ม', style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold)),
             ),
           ],
         );
@@ -83,18 +77,16 @@ class _ToDoListState extends State<ToDoList> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
-      backgroundColor: Color(0xFF1F1F39),
+      backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: theme.appBarTheme.backgroundColor ?? Colors.transparent,
         elevation: 0,
         title: Text(
           'แผนของฉัน',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
+          style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
         ),
         centerTitle: false,
       ),
@@ -103,15 +95,9 @@ class _ToDoListState extends State<ToDoList> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    'ยังไม่มีแผนการ',
-                    style: TextStyle(fontSize: 20, color: Colors.white),
-                  ),
+                  Text('ยังไม่มีแผนการ', style: theme.textTheme.bodyLarge),
                   SizedBox(height: 8),
-                  Text(
-                    'คุณยังไม่เพิ่มแผนใดๆ ที่ต้องทำ',
-                    style: TextStyle(fontSize: 16, color: Colors.grey),
-                  ),
+                  Text('คุณยังไม่เพิ่มแผนใดๆ ที่ต้องทำ', style: theme.textTheme.bodyMedium?.copyWith(color: Colors.grey)),
                 ],
               ),
             )
@@ -121,23 +107,17 @@ class _ToDoListState extends State<ToDoList> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   if (tasks.isNotEmpty) ...[
-                    Text('ต้องทำ (${tasks.length})',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        )),
+                    Text('ต้องทำ (${tasks.length})', style: theme.textTheme.titleMedium),
                     SizedBox(height: 8),
                     ...tasks.asMap().entries.map((entry) {
                       int index = entry.key;
                       String task = entry.value;
                       return Card(
-                        color: Color(0xFF2F2F4F),
+                        color: theme.cardColor,
                         child: ListTile(
-                          title:
-                              Text(task, style: TextStyle(color: Colors.white)),
+                          title: Text(task, style: theme.textTheme.bodyLarge),
                           leading: IconButton(
-                            icon: Icon(Icons.radio_button_unchecked,
-                                color: Colors.white),
+                            icon: Icon(Icons.radio_button_unchecked, color: theme.iconTheme.color),
                             onPressed: () => _toggleTask(index),
                           ),
                         ),
@@ -146,30 +126,24 @@ class _ToDoListState extends State<ToDoList> {
                   ],
                   SizedBox(height: 16),
                   if (completedTasks.isNotEmpty) ...[
-                    Text('สำเร็จ (${completedTasks.length})',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        )),
+                    Text('สำเร็จ (${completedTasks.length})', style: theme.textTheme.titleMedium),
                     SizedBox(height: 8),
                     ...completedTasks.asMap().entries.map((entry) {
                       int index = entry.key;
                       String task = entry.value;
                       return Card(
-                        color: Color(0xFF2F2F4F),
+                        color: theme.cardColor,
                         child: ListTile(
                           title: Text(
                             task,
-                            style: TextStyle(
-                              color: Colors.white,
+                            style: theme.textTheme.bodyLarge?.copyWith(
                               decoration: TextDecoration.lineThrough,
                               decorationColor: Colors.red,
                               decorationThickness: 2,
                             ),
                           ),
                           leading: IconButton(
-                            icon: Icon(Icons.check_circle,
-                                color: Color(0xFF3D5CFF)),
+                            icon: Icon(Icons.check_circle, color: Colors.green),
                             onPressed: () => _toggleCompletedTask(index),
                           ),
                           trailing: IconButton(
@@ -187,7 +161,7 @@ class _ToDoListState extends State<ToDoList> {
         onPressed: _addTask,
         shape: CircleBorder(),
         elevation: 10,
-        backgroundColor: Colors.redAccent,
+        backgroundColor: theme.colorScheme.primary,
         child: Icon(Icons.add, color: Colors.white, size: 36),
       ),
     );
