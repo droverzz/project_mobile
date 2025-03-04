@@ -53,7 +53,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
+    Provider.of<ThemeProvider>(context);
     final bottomNavTheme = Theme.of(context).bottomNavigationBarTheme;
 
     return Scaffold(

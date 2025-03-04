@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'dart:convert';
-import '../widgets/add_task_dialog.dart';
-import '../widgets/edit_task_dialog.dart';
-import '../widgets/confirm_delete_dialog.dart';
+import '../widgets/to-buy/add_task_dialog.dart';
+import '../widgets/to-buy/edit_task_dialog.dart';
+import '../widgets/to-buy/confirm_delete_dialog.dart';
 
 
 class ToDoList extends StatefulWidget {

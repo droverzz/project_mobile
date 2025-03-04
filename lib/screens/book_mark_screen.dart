@@ -1,4 +1,9 @@
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import '../widgets/personalList/add_recipe_list_dialog.dart';
+import '../widgets/personalList/edit_recipe_list_dialog.dart';
 
 class BookMarkScreen extends StatefulWidget {
   const BookMarkScreen({super.key});
@@ -10,112 +15,84 @@ class BookMarkScreen extends StatefulWidget {
 class _BookmarkPageState extends State<BookMarkScreen> {
   List<String> playlists = [];
 
-  void _addPlaylist() {
-    final theme = Theme.of(context);
-    TextEditingController controller = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    _loadPlaylistsFromFile();
+  }
 
+  /// ดึง path ของไฟล์ JSON ที่ใช้เก็บข้อมูล
+  Future<String> _getFilePath() async {
+    final directory = await getApplicationDocumentsDirectory();
+    return '${directory.path}/playlists.json';
+  }
+
+  /// บันทึกข้อมูลลงไฟล์ JSON
+  Future<void> _savePlaylistsToFile() async {
+    final filePath = await _getFilePath();
+    final file = File(filePath);
+    await file.writeAsString(jsonEncode(playlists));
+  }
+
+  /// โหลดข้อมูลจากไฟล์ JSON
+  Future<void> _loadPlaylistsFromFile() async {
+    try {
+      final filePath = await _getFilePath();
+      final file = File(filePath);
+      if (await file.exists()) {
+        final contents = await file.readAsString();
+        setState(() {
+          playlists = List<String>.from(jsonDecode(contents));
+        });
+      }
+    } catch (e) {
+      print("Error loading playlists: $e");
+    }
+  }
+
+  /// เพิ่มรายการอาหารส่วนตัวเรียใช้ widgets add_recipe_list
+  void _addPlaylist() {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor:
-            // ignore: deprecated_member_use
-            theme.dialogBackgroundColor, 
-        title: Text(
-          "ตั้งชื่อ Playlist",
-          style: theme.textTheme.titleMedium
-              ?.copyWith(fontWeight: FontWeight.bold),
-        ),
-        content: TextField(
-          controller: controller,
-          style: theme.textTheme.bodyLarge,
-          decoration: InputDecoration(
-            hintText: "ชื่อ Playlist",
-            hintStyle:
-                theme.textTheme.bodyMedium?.copyWith(color: Colors.white54),
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text("ยกเลิก", style: theme.textTheme.bodyLarge),
-          ),
-          TextButton(
-            onPressed: () {
-              if (controller.text.isNotEmpty) {
-                setState(() => playlists.add(controller.text));
-                Navigator.pop(context);
-              }
-            },
-            child: Text("บันทึก",
-                style: theme.textTheme.bodyLarge
-                    ?.copyWith(fontWeight: FontWeight.bold)),
-          ),
-        ],
+      builder: (context) => AddPlaylistDialog(
+        onAdd: (name) {
+          setState(() => playlists.add(name));
+          _savePlaylistsToFile();
+        },
       ),
     );
   }
-
+  /// แก้ไขรายการอาหารส่วนตัวเรียใช้ widgets add_recipe_list
   void _editPlaylist(int index) {
-    final theme = Theme.of(context);
-    TextEditingController controller =
-        TextEditingController(text: playlists[index]);
-
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        // ignore: deprecated_member_use
-        backgroundColor: theme.dialogBackgroundColor,
-        title: Text(
-          "แก้ไขชื่อ Playlist",
-          style: theme.textTheme.titleMedium
-              ?.copyWith(fontWeight: FontWeight.bold),
-        ),
-        content: TextField(
-          controller: controller,
-          style: theme.textTheme.bodyLarge,
-          decoration: InputDecoration(
-            hintText: "ชื่อ Playlist",
-            hintStyle:
-                theme.textTheme.bodyMedium?.copyWith(color: Colors.white54),
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text("ยกเลิก", style: theme.textTheme.bodyLarge),
-          ),
-          TextButton(
-            onPressed: () {
-              if (controller.text.isNotEmpty) {
-                setState(() => playlists[index] = controller.text);
-                Navigator.pop(context);
-              }
-            },
-            child: Text("บันทึก",
-                style: theme.textTheme.bodyLarge
-                    ?.copyWith(fontWeight: FontWeight.bold)),
-          ),
-        ],
+      builder: (context) => EditPlaylistDialog(
+        initialName: playlists[index],
+        onEdit: (name) {
+          setState(() => playlists[index] = name);
+          _savePlaylistsToFile();
+        },
       ),
     );
   }
 
   void _deletePlaylist(int index) {
     setState(() => playlists.removeAt(index));
+    _savePlaylistsToFile(); // บันทึกไฟล์
   }
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context); // ใช้ Theme ของแอป
+    final theme = Theme.of(context);
 
     return Scaffold(
-      backgroundColor: theme.scaffoldBackgroundColor, // ใช้สีของ theme
+      backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: theme.appBarTheme.backgroundColor, // ใช้สี app bar
+        backgroundColor: theme.appBarTheme.backgroundColor,
         elevation: 0,
         title: Text(
           "บันทึกเมนู",
-          style: theme.textTheme.headlineSmall, // ใช้ theme text
+          style: theme.textTheme.headlineSmall,
         ),
         centerTitle: false,
       ),
@@ -126,10 +103,7 @@ class _BookmarkPageState extends State<BookMarkScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      'ไม่มีรายการบันทึก',
-                      style: theme.textTheme.bodyLarge, // ใช้ text theme
-                    ),
+                    Text('ไม่มีรายการบันทึก', style: theme.textTheme.bodyLarge),
                     SizedBox(height: 8),
                     Text(
                       'คุณยังไม่ได้บันทึกรายการอาหาร',
@@ -151,7 +125,7 @@ class _BookmarkPageState extends State<BookMarkScreen> {
                   return Container(
                     padding: EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: theme.cardColor, // ใช้สีจาก theme
+                      color: theme.cardColor,
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Stack(
@@ -168,7 +142,7 @@ class _BookmarkPageState extends State<BookMarkScreen> {
                           right: 5,
                           top: 5,
                           child: PopupMenuButton<String>(
-                            color: theme.cardColor, // ใช้สีจาก theme
+                            color: theme.cardColor,
                             onSelected: (value) {
                               if (value == "edit") _editPlaylist(index);
                               if (value == "delete") _deletePlaylist(index);
@@ -213,7 +187,7 @@ class _BookmarkPageState extends State<BookMarkScreen> {
         onPressed: _addPlaylist,
         shape: CircleBorder(),
         elevation: 10,
-        backgroundColor: theme.primaryColor, // ใช้สี primary จาก theme
+        backgroundColor: theme.primaryColor,
         child: Icon(Icons.add, color: theme.colorScheme.onPrimary, size: 36),
       ),
     );
