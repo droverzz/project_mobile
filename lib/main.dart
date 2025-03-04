@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_group_project/helpers/menu_db.dart';
 import 'package:provider/provider.dart';
 import 'theme/theme_provider.dart';
 import 'screens/home_screen.dart';
 import 'screens/search_camera_screen.dart';
 import 'screens/todo_screen.dart';
-import 'screens/book_mark_screen.dart';
+import 'screens/bookmark/bookmark_screen.dart';
 import 'screens/settings_screen.dart';
 
 void main() {
@@ -20,6 +21,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+    final menuDbJson = MenuDbJson();
+    menuDbJson.loadJsonData('assets/meals.json');
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
