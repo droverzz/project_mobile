@@ -3,18 +3,16 @@ import 'package:flutter/material.dart';
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
-      backgroundColor: Color(0xFF1F1F39),
+      backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: theme.appBarTheme.backgroundColor,
         elevation: 0,
         title: Text(
           'หน้าแรก',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
+          style: theme.textTheme.headlineSmall, // ใช้ theme text
         ),
         centerTitle: false,
       ),
@@ -23,19 +21,19 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // 🔎 Search Bar
+            // Search Bar
             Container(
               decoration: BoxDecoration(
-                color: Color(0xFF2F2F4F),
+                color: theme.cardColor, // ใช้สีของ theme
                 borderRadius: BorderRadius.circular(12),
               ),
               child: TextField(
-                style: TextStyle(color: Colors.white),
+                style: theme.textTheme.bodyLarge,
                 decoration: InputDecoration(
                   hintText: 'ค้นหาด้วยวัตถุดิบ',
-                  hintStyle: TextStyle(color: Colors.white54),
-                  prefixIcon: Icon(Icons.search, color: Colors.white),
-                  suffixIcon: Icon(Icons.filter_list, color: Colors.white),
+                  hintStyle: theme.textTheme.bodyMedium?.copyWith(color: Colors.white54),
+                  prefixIcon: Icon(Icons.search, color: theme.iconTheme.color),
+                  suffixIcon: Icon(Icons.filter_list, color: theme.iconTheme.color),
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.all(16),
                 ),
@@ -43,29 +41,26 @@ class HomeScreen extends StatelessWidget {
             ),
             SizedBox(height: 20),
 
-            // 🍽 เมนูมาแรงวันนี้
+            // เมนูมาแรงวันนี้
             Text(
               'เมนูมาแรง วันนี้',
-              style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white),
+              style: theme.textTheme.titleMedium,
             ),
             SizedBox(height: 10),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _buildMenuCard('หมูชิ้น'),
-                _buildMenuCard('ปลาซาบะ'),
+                _buildMenuCard(context, 'หมูชิ้น'),
+                _buildMenuCard(context, 'ปลาซาบะ'),
               ],
             ),
             SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _buildMenuCard('ไข่เป็ด'),
-                _buildMenuCard('ผักโขม'),
+                _buildMenuCard(context, 'ไข่เป็ด'),
+                _buildMenuCard(context, 'ผักโขม'),
               ],
             ),
             SizedBox(height: 20),
@@ -73,15 +68,12 @@ class HomeScreen extends StatelessWidget {
             // รายการค้นหาล่าสุด
             Text(
               'รายการค้นหาล่าสุด',
-              style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white),
+              style: theme.textTheme.titleMedium,
             ),
             SizedBox(height: 10),
 
-            _buildRecentSearch('ปีกไก่', '3 วันที่แล้ว'),
-            _buildRecentSearch('หมู, กระเทียม', '21 ม.ค. 2025'),
+            _buildRecentSearch(context, 'ปีกไก่', '3 วันที่แล้ว'),
+            _buildRecentSearch(context, 'หมู, กระเทียม', '21 ม.ค. 2025'),
           ],
         ),
       ),
@@ -89,13 +81,14 @@ class HomeScreen extends StatelessWidget {
   }
 
   // สำหรับการ์ดเมนู
-  Widget _buildMenuCard(String title) {
+  Widget _buildMenuCard(BuildContext context, String title) {
+    final theme = Theme.of(context);
     return Expanded(
       child: Container(
         height: 80,
         margin: EdgeInsets.symmetric(horizontal: 5),
         decoration: BoxDecoration(
-          color: Colors.grey[400], // สี placeholder
+          color: theme.cardColor, // ใช้ theme card color
           borderRadius: BorderRadius.circular(12),
         ),
         child: Align(
@@ -105,13 +98,12 @@ class HomeScreen extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
-                color: Colors.pink[100],
+                color: theme.primaryColorLight, // ใช้สีอ่อนของ primary color
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Text(
                 title,
-                style: TextStyle(
-                    color: Colors.red[800], fontWeight: FontWeight.bold),
+                style: theme.textTheme.bodyLarge?.copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -121,12 +113,13 @@ class HomeScreen extends StatelessWidget {
   }
 
   // รายการค้นหาล่าสุด
-  Widget _buildRecentSearch(String title, String date) {
+  Widget _buildRecentSearch(BuildContext context, String title, String date) {
+    final theme = Theme.of(context);
     return Container(
       margin: EdgeInsets.only(bottom: 10),
       padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Color(0xFF2F2F4F),
+        color: theme.cardColor, // ใช้สีของ theme
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
@@ -135,7 +128,7 @@ class HomeScreen extends StatelessWidget {
             width: 50,
             height: 50,
             decoration: BoxDecoration(
-              color: Colors.grey[400], // สี placeholder
+              color: theme.primaryColorLight, // ใช้สี primary
               borderRadius: BorderRadius.circular(8),
             ),
           ),
@@ -145,14 +138,11 @@ class HomeScreen extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
+                style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
               ),
               Text(
                 date,
-                style: TextStyle(fontSize: 14, color: Colors.white54),
+                style: theme.textTheme.bodyMedium?.copyWith(color: Colors.white54),
               ),
             ],
           ),
