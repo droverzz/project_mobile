@@ -14,14 +14,14 @@ class SettingsScreen extends StatelessWidget {
         elevation: 0,
         title: Text(
           'ตั้งค่า',
-          style: theme.textTheme.headlineSmall, // ใช้ theme text
+          style: theme.textTheme.headlineSmall, 
         ),
         centerTitle: false,
       ),
       body: Column(
         children: [
-          _buildSettingItem(context, 'ภาษา'),
-          _buildSettingItem(context, 'เกี่ยวกับทุกภาษา'),
+          // _buildSettingItem(context, 'ภาษา'),
+          // _buildSettingItem(context, 'เกี่ยวกับแอปพลิเคชัน'),
           _buildSettingItem(context, 'ธีม', isThemeSwitch: true),
         ],
       ),

@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
+import 'dart:convert';
+import '../widgets/add_task_dialog.dart';
+import '../widgets/edit_task_dialog.dart';
+import '../widgets/confirm_delete_dialog.dart';
+
 
 class ToDoList extends StatefulWidget {
   const ToDoList({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _ToDoListState createState() => _ToDoListState();
 }
 
@@ -12,70 +18,124 @@ class _ToDoListState extends State<ToDoList> {
   List<String> tasks = [];
   List<String> completedTasks = [];
 
-  /// หน้าต่างเพิ่มรายการวัตถุดิบ
-  void _addTask() {
-    final theme = Theme.of(context);
-    TextEditingController controller = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    _loadTasks();
+  }
 
+  /// ดึง path ของไฟล์ JSON ที่ใช้เก็บข้อมูล
+  Future<String> _getFilePath() async {
+    final directory = await getApplicationDocumentsDirectory();
+    return '${directory.path}/todo_data.json';
+  }
+
+  /// บันทึกข้อมูลลงไฟล์ JSON
+  Future<void> _saveTasks() async {
+    final file = File(await _getFilePath());
+    final data = {'tasks': tasks, 'completedTasks': completedTasks};
+    await file.writeAsString(jsonEncode(data));
+  }
+
+  /// โหลดข้อมูลจากไฟล์ JSON
+  Future<void> _loadTasks() async {
+    try {
+      final file = File(await _getFilePath());
+      if (!await file.exists()) return;
+
+      final data = jsonDecode(await file.readAsString());
+      setState(() {
+        tasks = List<String>.from(data['tasks']);
+        completedTasks = List<String>.from(data['completedTasks']);
+      });
+    } catch (e) {
+      print('Error loading tasks: $e');
+    }
+  }
+
+  /// เพิ่มข้อมูลวัตถุดิบ จาก widget หน้า add_task_dialog
+  void _addTask() {
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          // ignore: deprecated_member_use
-          backgroundColor: theme.dialogBackgroundColor,
-          title: Text(
-            'เพิ่มวัตถุดิบของฉัน',
-            style: theme.textTheme.titleMedium
-                ?.copyWith(fontWeight: FontWeight.bold),
-          ),
-          content: TextField(
-            controller: controller,
-            style: theme.textTheme.bodyLarge,
-            decoration: InputDecoration(
-              hintText: 'พิมพ์ชื่อวัตถุดิบ',
-              hintStyle:
-                  theme.textTheme.bodyMedium?.copyWith(color: Colors.white54),
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text('ยกเลิก', style: theme.textTheme.bodyLarge),
-            ),
-            TextButton(
-              onPressed: () {
-                if (controller.text.isNotEmpty) {
-                  setState(() => tasks.add(controller.text));
-                }
-                Navigator.pop(context);
-              },
-              child: Text('เพิ่ม',
-                  style: theme.textTheme.bodyLarge
-                      ?.copyWith(fontWeight: FontWeight.bold)),
-            ),
-          ],
+        return AddTaskDialog(
+          onTaskAdded: (newTask) {
+            setState(() => tasks.add(newTask));
+            _saveTasks();
+          },
         );
       },
     );
   }
 
+  /// เปลี่ยนสถานะเป็น Done
   void _toggleTask(int index) {
     setState(() {
       completedTasks.add(tasks[index]);
       tasks.removeAt(index);
+      _saveTasks();
     });
   }
 
+  /// เปลี่ยนสถานะกลับ
   void _toggleCompletedTask(int index) {
     setState(() {
       tasks.add(completedTasks[index]);
       completedTasks.removeAt(index);
+      _saveTasks();
     });
   }
 
+  /// แก้ไขข้อมูล ดึง widgets หน้า edit_task_dialog มาใช้
+  void _editTask(int index) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return EditTaskDialog(
+          currentTask: tasks[index],
+          onTaskUpdated: (updatedTask) {
+            setState(() {
+              tasks[index] = updatedTask;
+            });
+            _saveTasks();
+          },
+        );
+      },
+    );
+  }
+
+  /// ฟังก์ชันสำหรับแสดง Dialog ยืนยันการลบ
+  void _confirmDeleteTask({required int index, required bool isCompleted}) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return ConfirmDeleteDialog(
+          taskName: isCompleted ? completedTasks[index] : tasks[index],
+          onConfirm: () {
+            if (isCompleted) {
+              _removeCompletedTask(index);
+            } else {
+              _removeTask(index);
+            }
+          },
+        );
+      },
+    );
+  }
+
+  /// ลบข้อมูลจาก task
+  void _removeTask(int index) {
+    setState(() {
+      tasks.removeAt(index);
+      _saveTasks();
+    });
+  }
+
+  /// ลบข้อมูลจาก complete task
   void _removeCompletedTask(int index) {
     setState(() {
       completedTasks.removeAt(index);
+      _saveTasks();
     });
   }
 
@@ -88,10 +148,7 @@ class _ToDoListState extends State<ToDoList> {
       appBar: AppBar(
         backgroundColor: theme.appBarTheme.backgroundColor,
         elevation: 0,
-        title: Text(
-          'แผนของฉัน',
-          style: theme.textTheme.headlineSmall, // ใช้ theme text
-        ),
+        title: Text('แผนของฉัน', style: theme.textTheme.headlineSmall),
         centerTitle: false,
       ),
       body: tasks.isEmpty && completedTasks.isEmpty
@@ -128,6 +185,20 @@ class _ToDoListState extends State<ToDoList> {
                                 color: theme.iconTheme.color),
                             onPressed: () => _toggleTask(index),
                           ),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                icon: Icon(Icons.edit, color: Colors.blue),
+                                onPressed: () => _editTask(index),
+                              ),
+                              IconButton(
+                                icon: Icon(Icons.delete, color: Colors.red),
+                                onPressed: () => _confirmDeleteTask(
+                                    index: index, isCompleted: false),
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     }).toList(),
@@ -157,7 +228,8 @@ class _ToDoListState extends State<ToDoList> {
                           ),
                           trailing: IconButton(
                             icon: Icon(Icons.delete, color: Colors.red),
-                            onPressed: () => _removeCompletedTask(index),
+                            onPressed: () => _confirmDeleteTask(
+                                index: index, isCompleted: true),
                           ),
                         ),
                       );
