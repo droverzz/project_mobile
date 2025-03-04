@@ -63,6 +63,7 @@ class _BookmarkPageState extends State<BookMarkScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
+        // ignore: deprecated_member_use
         backgroundColor: theme.dialogBackgroundColor,
         title: Text(
           "แก้ไขชื่อ Playlist",
