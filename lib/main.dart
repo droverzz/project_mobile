@@ -63,7 +63,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
         children: [
           // Bottom Navigation Bar
           Container(
-            padding: const EdgeInsets.only(top: 20), // ทำให้มีช่องว่างด้านบน
+            padding: const EdgeInsets.only(top: 20), 
             decoration: BoxDecoration(
               color: bottomNavTheme.backgroundColor,
               borderRadius: const BorderRadius.only(
@@ -80,7 +80,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
             ),
             child: BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
-              backgroundColor: Colors.transparent, // ให้ background โปร่งใส
+      
               selectedItemColor: bottomNavTheme.selectedItemColor,
               unselectedItemColor: bottomNavTheme.unselectedItemColor,
               items: const [
@@ -102,7 +102,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
 
           // Floating Camera Button
           Positioned(
-            top: -20, // ทำให้ปุ่มกล้องยกขึ้น
+            top: -20, 
             child: GestureDetector(
               onTap: () => _onItemTapped(2),
               child: Container(
