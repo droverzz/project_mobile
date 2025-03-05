@@ -1,0 +1,280 @@
+{
+  "meals": [
+    {
+      "name": "ผัดกะเพราหมูสับ",
+      "description": "ผัดกะเพราหมูสับรสชาติจัดจ้าน หอมใบกะเพรา ทานกับข้าวสวยอร่อยลงตัว",
+      "ingredients": [
+        {
+          "name": "หมูสับ",
+          "quantity": 200,
+          "unit": "กรัม",
+          "isOptional": false
+        },
+        {
+          "name": "ใบกะเพรา",
+          "quantity": 1,
+          "unit": "กำ",
+          "isOptional": false
+        },
+        {
+          "name": "พริกขี้หนู",
+          "quantity": 5,
+          "unit": "เม็ด",
+          "isOptional": false
+        },
+        {
+          "name": "กระเทียม",
+          "quantity": 3,
+          "unit": "กลีบ",
+          "isOptional": false
+        },
+        {
+          "name": "น้ำปลา",
+          "quantity": 2,
+          "unit": "ช้อนโต๊ะ",
+          "isOptional": false
+        },
+        {
+          "name": "น้ำตาลทราย",
+          "quantity": 1,
+          "unit": "ช้อนชา",
+          "isOptional": false
+        },
+        {
+          "name": "น้ำมันพืช",
+          "quantity": 2,
+          "unit": "ช้อนโต๊ะ",
+          "isOptional": false
+        }
+      ],
+      "instructions": [
+        "โขลกพริกและกระเทียมให้ละเอียด",
+        "ตั้งกระทะ ใส่น้ำมัน นำพริกกระเทียมลงผัดให้หอม",
+        "ใส่หมูสับลงผัดจนสุก",
+        "ปรุงรสด้วยน้ำปลาและน้ำตาล",
+        "ใส่ใบกะเพรา ผัดให้เข้ากัน พร้อมเสิร์ฟ"
+      ],
+      "total_calories": 400,
+      "image_path": "assets/images/pad_krapao.jpg"
+    },
+    {
+      "name": "ข้าวผัดไข่",
+      "description": "ข้าวผัดไข่ง่ายๆ รสชาติอร่อย ทำได้รวดเร็ว",
+      "ingredients": [
+        {
+          "name": "ข้าวสวย",
+          "quantity": 2,
+          "unit": "ถ้วย",
+          "isOptional": false
+        },
+        {
+          "name": "ไข่ไก่",
+          "quantity": 2,
+          "unit": "ฟอง",
+          "isOptional": false
+        },
+        {
+          "name": "หอมใหญ่",
+          "quantity": 0.5,
+          "unit": "หัว",
+          "isOptional": false
+        },
+        {
+          "name": "แครอท",
+          "quantity": 0.5,
+          "unit": "หัว",
+          "isOptional": true
+        },
+        {
+          "name": "ต้นหอม",
+          "quantity": 2,
+          "unit": "ต้น",
+          "isOptional": true
+        },
+        {
+          "name": "ซีอิ๊วขาว",
+          "quantity": 2,
+          "unit": "ช้อนโต๊ะ",
+          "isOptional": false
+        },
+        {
+          "name": "น้ำมันพืช",
+          "quantity": 2,
+          "unit": "ช้อนโต๊ะ",
+          "isOptional": false
+        }
+      ],
+      "instructions": [
+        "ตั้งกระทะ ใส่น้ำมัน นำไข่ลงเจียวให้สุก",
+        "ใส่หอมใหญ่และแครอท ผัดให้สุก",
+        "ใส่ข้าวสวยลงผัด",
+        "ปรุงรสด้วยซีอิ๊วขาว",
+        "ใส่ต้นหอม ผัดให้เข้ากัน พร้อมเสิร์ฟ"
+      ],
+      "total_calories": 300,
+      "image_path": "assets/images/khao_pad_kai.jpg"
+    },
+    {
+      "name": "แกงเขียวหวานไก่",
+      "description": "แกงเขียวหวานไก่รสชาติเข้มข้น หอมเครื่องแกง ทานกับข้าวสวยหรือขนมจีน",
+      "ingredients": [
+        {
+          "name": "เนื้อไก่",
+          "quantity": 300,
+          "unit": "กรัม",
+          "isOptional": false
+        },
+        {
+          "name": "พริกแกงเขียวหวาน",
+          "quantity": 50,
+          "unit": "กรัม",
+          "isOptional": false
+        },
+        {
+          "name": "กะทิ",
+          "quantity": 500,
+          "unit": "มิลลิลิตร",
+          "isOptional": false
+        },
+        {
+          "name": "มะเขือเปราะ",
+          "quantity": 100,
+          "unit": "กรัม",
+          "isOptional": false
+        },
+        {
+          "name": "ใบโหระพา",
+          "quantity": 1,
+          "unit": "กำ",
+          "isOptional": false
+        },
+        {
+          "name": "น้ำปลา",
+          "quantity": 2,
+          "unit": "ช้อนโต๊ะ",
+          "isOptional": false
+        },
+        {
+          "name": "น้ำตาลปี๊บ",
+          "quantity": 1,
+          "unit": "ช้อนโต๊ะ",
+          "isOptional": false
+        }
+      ],
+      "instructions": [
+        "ผัดพริกแกงกับกะทิให้หอม",
+        "ใส่เนื้อไก่ลงผัดจนสุก",
+        "เติมกะทิที่เหลือ ใส่มะเขือเปราะ",
+        "ปรุงรสด้วยน้ำปลาและน้ำตาลปี๊บ",
+        "ใส่ใบโหระพา พร้อมเสิร์ฟ"
+      ],
+      "total_calories": 450,
+      "image_path": "assets/images/gang_kiew_wan_kai.jpg"
+    },
+    {
+      "name": "ส้มตำไทย",
+      "description": "ส้มตำไทยรสชาติเปรี้ยว หวาน เค็ม เผ็ด ครบรส",
+      "ingredients": [
+        {
+          "name": "มะละกอดิบ",
+          "quantity": 200,
+          "unit": "กรัม",
+          "isOptional": false
+        },
+        {
+          "name": "มะเขือเทศ",
+          "quantity": 2,
+          "unit": "ลูก",
+          "isOptional": false
+        },
+        {
+          "name": "ถั่วฝักยาว",
+          "quantity": 50,
+          "unit": "กรัม",
+          "isOptional": false
+        },
+        {
+          "name": "พริกขี้หนู",
+          "quantity": 3,
+          "unit": "เม็ด",
+          "isOptional": false
+        },
+        {
+          "name": "กระเทียม",
+          "quantity": 2,
+          "unit": "กลีบ",
+          "isOptional": false
+        },
+        {
+          "name": "น้ำปลา",
+          "quantity": 2,
+          "unit": "ช้อนโต๊ะ",
+          "isOptional": false
+        },
+        {
+          "name": "น้ำมะนาว",
+          "quantity": 2,
+          "unit": "ช้อนโต๊ะ",
+          "isOptional": false
+        },
+        {
+          "name": "น้ำตาลปี๊บ",
+          "quantity": 1,
+          "unit": "ช้อนโต๊ะ",
+          "isOptional": false
+        },
+        {
+          "name": "ถั่วลิสงคั่ว",
+          "quantity": 2,
+          "unit": "ช้อนโต๊ะ",
+          "isOptional": true
+        }
+      ],
+      "instructions": [
+        "โขลกพริกและกระเทียมให้ละเอียด",
+        "ใส่มะเขือเทศและถั่วฝักยาวลงไปโขลก",
+        "ใส่มะละกอ ปรุงรสด้วยน้ำปลา น้ำมะนาว และน้ำตาลปี๊บ",
+        "คลุกเคล้าให้เข้ากัน โรยถั่วลิสง พร้อมเสิร์ฟ"
+      ],
+      "total_calories": 250,
+      "image_path": "assets/images/som_tum.jpg"
+    },
+    {
+      "name": "ไข่เจียวหมูสับ",
+      "description": "ไข่เจียวหมูสับฟูนุ่ม อร่อย ทานกับข้าวสวยร้อนๆ",
+      "ingredients": [
+        {
+          "name": "ไข่ไก่",
+          "quantity": 3,
+          "unit": "ฟอง",
+          "isOptional": false
+        },
+        {
+          "name": "หมูสับ",
+          "quantity": 100,
+          "unit": "กรัม",
+          "isOptional": false
+        },
+        {
+          "name": "น้ำปลา",
+          "quantity": 1,
+          "unit": "ช้อนโต๊ะ",
+          "isOptional": false
+        },
+        {
+          "name": "น้ำมันพืช",
+          "quantity": 3,
+          "unit": "ช้อนโต๊ะ",
+          "isOptional": false
+        }
+      ],
+      "instructions": [
+        "ตีไข่ไก่ ใส่หมูสับและน้ำปลาลงไปผสมให้เข้ากัน",
+        "ตั้งกระทะ ใส่น้ำมัน นำไข่ลงเจียวให้สุกเหลือง",
+        "พร้อมเสิร์ฟ"
+      ],
+      "total_calories": 350,
+      "image_path": "assets/images/kai_jiew.jpg"
+    }
+  ]
+}

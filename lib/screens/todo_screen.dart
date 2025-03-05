@@ -6,7 +6,6 @@ import '../widgets/to-buy/add_task_dialog.dart';
 import '../widgets/to-buy/edit_task_dialog.dart';
 import '../widgets/to-buy/confirm_delete_dialog.dart';
 
-
 class ToDoList extends StatefulWidget {
   const ToDoList({super.key});
 
@@ -148,7 +147,12 @@ class _ToDoListState extends State<ToDoList> {
       appBar: AppBar(
         backgroundColor: theme.appBarTheme.backgroundColor,
         elevation: 0,
-        title: Text('แผนของฉัน', style: theme.textTheme.headlineSmall),
+        title: Text(
+          'แผนของฉัน',
+          style: theme.textTheme.headlineSmall?.copyWith(
+            color: theme.colorScheme.onSurface, // ใช้สีของ primary color
+          ),
+        ),
         centerTitle: false,
       ),
       body: tasks.isEmpty && completedTasks.isEmpty

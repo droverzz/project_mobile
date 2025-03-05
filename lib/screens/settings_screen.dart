@@ -14,7 +14,9 @@ class SettingsScreen extends StatelessWidget {
         elevation: 0,
         title: Text(
           'ตั้งค่า',
-          style: theme.textTheme.headlineSmall, 
+          style: theme.textTheme.headlineSmall?.copyWith(
+            color: theme.colorScheme.onSurface, // ใช้สีของ primary color
+          ),
         ),
         centerTitle: false,
       ),
