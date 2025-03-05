@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_group_project/helpers/menu_db.dart';
 import 'package:provider/provider.dart';
 import 'theme/theme_provider.dart';
 import 'screens/home_screen.dart';
@@ -20,10 +21,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+    final menuDbJson = MenuDbJson();
+    menuDbJson.loadJsonData('assets/meals.json');
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: themeProvider.theme,
+      theme: themeProvider.theme, // ใช้ theme จาก ThemeProvider
       home: BottomNavScreen(),
     );
   }
@@ -63,7 +66,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
         children: [
           // Bottom Navigation Bar
           Container(
-            padding: const EdgeInsets.only(top: 20), 
+            padding: const EdgeInsets.only(top: 20),
             decoration: BoxDecoration(
               color: bottomNavTheme.backgroundColor,
               borderRadius: const BorderRadius.only(
@@ -80,7 +83,6 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
             ),
             child: BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
-      
               selectedItemColor: bottomNavTheme.selectedItemColor,
               unselectedItemColor: bottomNavTheme.unselectedItemColor,
               items: const [
@@ -88,8 +90,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
                     icon: Icon(Icons.home), label: 'หน้าแรก'),
                 BottomNavigationBarItem(
                     icon: Icon(Icons.bookmark), label: 'บันทึกเมนู'),
-                BottomNavigationBarItem(
-                    icon: SizedBox.shrink(), label: ''), 
+                BottomNavigationBarItem(icon: SizedBox.shrink(), label: ''),
                 BottomNavigationBarItem(
                     icon: Icon(Icons.format_list_numbered), label: 'วางแผน'),
                 BottomNavigationBarItem(
@@ -102,7 +103,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
 
           // Floating Camera Button
           Positioned(
-            top: -20, 
+            top: -20,
             child: GestureDetector(
               onTap: () => _onItemTapped(2),
               child: Container(
