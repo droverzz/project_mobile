@@ -28,19 +28,19 @@ class MenuDbJson implements MenuDb {
     print(jsonResult);
   }
 
-  Iterable<String> search(String keyword) {
+  List<String> search(String keyword) {
     if (menuData == null || menuData["meals"] == null) {
       return [];
     }
 
-    Iterable<String> resultByName = menuData["meals"]
+    List<String> resultByName = menuData["meals"]
         .where((item) => item["name"]
             .toString()
             .toLowerCase()
             .contains(keyword.toLowerCase()))
         .map((item) => item["name"].toString())
         .cast<String>();
-    Iterable<String> resultByIngredients = menuData["meals"]
+    List<String> resultByIngredients = menuData["meals"]
         .where((dynamic item) {
           return (item["ingredients"] as List<dynamic>).any((dynamic ingres) {
             // Explicitly cast `ingres["ingredient"]` to `String`
@@ -50,9 +50,10 @@ class MenuDbJson implements MenuDb {
           });
         })
         .map((dynamic item) => item["name"].toString())
-        .cast<String>();
+        .cast<String>()
+        .toList();
 
-    Iterable<String> combinedResults = [
+    List<String> combinedResults = [
       "--- จากชื่ออาหาร ---",
       ...resultByName,
       "--- จากส่วนประกอบ ---",
@@ -62,19 +63,29 @@ class MenuDbJson implements MenuDb {
     return combinedResults;
   }
 
-  Iterable<Recipe> searchRecipe(String keyword) {
+  List<Recipe> getRecipesFromRecipeName(String keyword) {
     if (menuData == null || menuData["meals"] == null) {
       return [];
     }
 
-    Iterable<Recipe> resultByName = menuData["meals"]
+    List<Recipe> result = menuData["meals"]
         .where((item) => item["name"]
             .toString()
             .toLowerCase()
             .contains(keyword.toLowerCase()))
         .map((item) => Recipe.fromJson(item))
-        .cast<Recipe>();
-    Iterable<Recipe> resultByIngredients = menuData["meals"]
+        .cast<Recipe>()
+        .toList();
+
+    return result;
+  }
+
+  List<Recipe> getRecipesFromIngredientName(String keyword) {
+    if (menuData == null || menuData["meals"] == null) {
+      return [];
+    }
+
+    List<Recipe> result = menuData["meals"]
         .where((dynamic item) {
           return (item["ingredients"] as List<dynamic>).any((dynamic ingres) {
             // Explicitly cast `ingres["ingredient"]` to `String`
@@ -84,38 +95,10 @@ class MenuDbJson implements MenuDb {
           });
         })
         .map((dynamic item) => Recipe.fromJson(item))
-        .cast<Recipe>();
+        .cast<Recipe>()
+        .toList();
 
-    Iterable<Recipe> combinedResults = [
-      Recipe.fromJson({
-        "name": "--- ถาม Food Guru ---",
-        "description": "",
-        "ingredients": [],
-        "instructions": [],
-        "total_calories": 0,
-        "image_path": "",
-      }),
-      Recipe.fromJson({
-        "name": "--- จากชื่ออาหาร ---",
-        "description": "",
-        "ingredients": [],
-        "instructions": [],
-        "total_calories": 0,
-        "image_path": "",
-      }),
-      ...resultByName,
-      Recipe.fromJson({
-        "name": "--- จากส่วนประกอบ ---",
-        "description": "",
-        "ingredients": [],
-        "instructions": [],
-        "total_calories": 0,
-        "image_path": "",
-      }),
-      ...resultByIngredients,
-    ];
-
-    return combinedResults;
+    return result;
   }
 
   Recipe? getByRecipeName(String recipeName) {
@@ -132,7 +115,7 @@ class MenuDbJson implements MenuDb {
     return Recipe.fromJson(recipe);
   }
 
-  Iterable<Recipe> getRandomRecipes(int count) {
+  List<Recipe> getRandomRecipes(int count) {
     if (menuData == null || menuData["meals"] == null) {
       return [];
     }
@@ -142,6 +125,6 @@ class MenuDbJson implements MenuDb {
       randomMeals.add(menuData["meals"][i]);
     }
 
-    return randomMeals.map((item) => Recipe.fromJson(item)).cast<Recipe>();
+    return randomMeals.map((item) => Recipe.fromJson(item)).cast<Recipe>().toList();
   }
 }

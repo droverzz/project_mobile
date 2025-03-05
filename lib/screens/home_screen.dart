@@ -36,7 +36,7 @@ class HomeScreen extends StatelessWidget {
                   color: theme.cardColor, // ใช้สีของ theme
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: SearchFood(initialKeyword: "")),
+                child: SearchFood()),
             SizedBox(height: 20),
 
             // เมนูมาแรงวันนี้

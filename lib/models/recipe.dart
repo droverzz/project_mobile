@@ -5,6 +5,7 @@ class Recipe {
   List<String> instructions;
   double totalCalories;
   String imagePath;
+  bool isLlmGenerated;
 
   Recipe({
     required this.name,
@@ -12,7 +13,8 @@ class Recipe {
     required this.ingredients,
     required this.instructions,
     required this.totalCalories,
-    this.imagePath = '',
+    required this.imagePath,
+    required this.isLlmGenerated,
   });
 
   factory Recipe.fromJson(Map<String, dynamic> json) {
@@ -25,6 +27,7 @@ class Recipe {
       instructions: List<String>.from(json['instructions']),
       totalCalories: (json['total_calories'] as num).toDouble(),
       imagePath: json['image_path'],
+      isLlmGenerated: json['is_llm_generated'],
     );
   }
 
@@ -36,6 +39,7 @@ class Recipe {
       'instructions': instructions,
       'total_calories': totalCalories,
       'image_path': imagePath,
+      'is_llm_generated': isLlmGenerated,
     };
   }
 }
