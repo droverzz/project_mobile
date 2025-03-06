@@ -32,7 +32,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
     final menuDbJson = MenuDbJson();
 
     return FutureBuilder(
@@ -51,10 +50,14 @@ class MyApp extends StatelessWidget {
             ),
           );
         } else {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: themeProvider.theme,
-            home: BottomNavScreen(camera: camera),
+          return Consumer<ThemeProvider>(
+            builder: (context, themeProvider, child) {
+              return MaterialApp(
+                debugShowCheckedModeBanner: false,
+                theme: themeProvider.theme,
+                home: BottomNavScreen(camera: camera),
+              );
+            },
           );
         }
       },

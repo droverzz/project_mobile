@@ -37,64 +37,68 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Search Bar
-            Container(
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Search Bar
+              Container(
                 decoration: BoxDecoration(
-                  color: theme.cardColor, // ใช้สีของ theme
+                  color: theme.cardColor,
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: SearchFood()),
-            SizedBox(height: 20),
-
-            // เมนูมาแรงวันนี้
-            Text(
-              'เมนูแนะนำ',
-              style: theme.textTheme.titleMedium?.copyWith(
-                color: theme.colorScheme.onSurface, // ใช้สี primary
+                child: SearchFood(),
               ),
-            ),
-            SizedBox(height: 10),
+              SizedBox(height: 20),
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                randomRecipe.elementAtOrNull(0) != null
-                    ? RecipeCard(recipe: randomRecipe.elementAt(0))
-                    : Container(),
-                randomRecipe.elementAtOrNull(1) != null
-                    ? RecipeCard(recipe: randomRecipe.elementAt(1))
-                    : Container(),
-              ],
-            ),
-            SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                randomRecipe.elementAtOrNull(2) != null
-                    ? RecipeCard(recipe: randomRecipe.elementAt(2))
-                    : Container(),
-                randomRecipe.elementAtOrNull(3) != null
-                    ? RecipeCard(recipe: randomRecipe.elementAt(3))
-                    : Container(),
-              ],
-            ),
-            SizedBox(height: 20),
-
-            // รายการค้นหาล่าสุด
-            Text(
-              'รายการค้นหาล่าสุด',
-              style: theme.textTheme.titleMedium?.copyWith(
-                color: theme.colorScheme.onSurface, // ใช้สี primary
+              // เมนูมาแรงวันนี้
+              Text(
+                'เมนูแนะนำ',
+                style: theme.textTheme.titleMedium?.copyWith(
+                  color: theme.colorScheme.onSurface,
+                ),
               ),
-            ),
-            SizedBox(height: 10),
+              SizedBox(height: 10),
 
-            _buildRecentSearch(context, 'ปีกไก่', '3 วันที่แล้ว'),
-            _buildRecentSearch(context, 'หมู, กระเทียม', '21 ม.ค. 2025'),
-          ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  randomRecipe.elementAtOrNull(0) != null
+                      ? RecipeCard(recipe: randomRecipe.elementAt(0))
+                      : Container(),
+                  randomRecipe.elementAtOrNull(1) != null
+                      ? RecipeCard(recipe: randomRecipe.elementAt(1))
+                      : Container(),
+                ],
+              ),
+              SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  randomRecipe.elementAtOrNull(2) != null
+                      ? RecipeCard(recipe: randomRecipe.elementAt(2))
+                      : Container(),
+                  randomRecipe.elementAtOrNull(3) != null
+                      ? RecipeCard(recipe: randomRecipe.elementAt(3))
+                      : Container(),
+                ],
+              ),
+              SizedBox(height: 20),
+
+              // รายการค้นหาล่าสุด
+              Text(
+                'รายการค้นหาล่าสุด',
+                style: theme.textTheme.titleMedium?.copyWith(
+                  color: theme.colorScheme.onSurface,
+                ),
+              ),
+              SizedBox(height: 10),
+
+              _buildRecentSearch(context, 'ปีกไก่', '3 วันที่แล้ว'),
+              _buildRecentSearch(context, 'หมู, กระเทียม', '21 ม.ค. 2025'),
+            ],
+          ),
         ),
       ),
     );
