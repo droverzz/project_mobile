@@ -1,5 +1,7 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_group_project/helpers/menu_db.dart';
+import 'package:flutter_application_group_project/screens/camera/take_picture_screen.dart';
 import 'package:provider/provider.dart';
 import 'theme/theme_provider.dart';
 import 'screens/home_screen.dart';
@@ -8,50 +10,98 @@ import 'screens/todo_screen.dart';
 import 'screens/bookmark/bookmark_screen.dart';
 import 'screens/settings_screen.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final cameras = await availableCameras();
+  final firstCamera = cameras.first;
+
   runApp(
     ChangeNotifierProvider(
       create: (context) => ThemeProvider(),
-      child: MyApp(),
+      child: MyApp(
+        camera: firstCamera,
+      ),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
+  final CameraDescription camera;
+
+  const MyApp({super.key, required this.camera});
+
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final menuDbJson = MenuDbJson();
-    menuDbJson.loadJsonData('assets/meals.json');
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: themeProvider.theme, // ใช้ theme จาก ThemeProvider
-      home: BottomNavScreen(),
+    return FutureBuilder(
+      future: menuDbJson.loadJsonData('assets/meals.json'),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return MaterialApp(
+            home: Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            ),
+          );
+        } else if (snapshot.hasError) {
+          return MaterialApp(
+            home: Scaffold(
+              body: Center(child: Text('Error loading data')),
+            ),
+          );
+        } else {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: themeProvider.theme,
+            home: BottomNavScreen(camera: camera),
+          );
+        }
+      },
     );
   }
 }
 
 class BottomNavScreen extends StatefulWidget {
+  final CameraDescription camera;
+
+  const BottomNavScreen({super.key, required this.camera});
+
   @override
   _BottomNavScreenState createState() => _BottomNavScreenState();
 }
 
 class _BottomNavScreenState extends State<BottomNavScreen> {
   int _selectedIndex = 0;
+  late List<Widget> _screens;
 
-  final List<Widget> _screens = [
-    HomeScreen(),
-    BookMarkScreen(),
-    SearchCameraScreen(),
-    ToDoList(),
-    SettingsScreen(),
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _screens = [
+      HomeScreen(),
+      BookMarkScreen(),
+      SearchCameraScreen(),
+      ToDoList(),
+      SettingsScreen(),
+    ];
+  }
+
+  void _pushCameraScreen() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => TakePictureScreen(camera: widget.camera),
+      ),
+    );
+  }
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
+    if (index == 2) {
+      _pushCameraScreen();
+    }
   }
 
   @override

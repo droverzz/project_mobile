@@ -39,6 +39,7 @@ dependencies:
 
   flutter_ai_toolkit:
   google_generative_ai:
+  google_mlkit_object_detection: ^0.14.0
 
   camera: ^0.11.1
   path_provider: ^2.1.5
@@ -74,6 +75,7 @@ flutter:
   assets:
     - assets/meals.json
     - assets/images/
+    - assets/ml/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

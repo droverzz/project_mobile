@@ -42,16 +42,11 @@ class HomeScreen extends StatelessWidget {
           children: [
             // Search Bar
             Container(
-              decoration: BoxDecoration(
-                color: theme.cardColor, // ใช้สีของ theme
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: GestureDetector(
-                onTap: () => _showFilterBottomSheet(
-                    context), // เรียกฟังก์ชันเพื่อแสดง FilterBottomSheet
-                child: SearchFood(initialKeyword: ""),
-              ),
-            ),
+                decoration: BoxDecoration(
+                  color: theme.cardColor, // ใช้สีของ theme
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: SearchFood()),
             SizedBox(height: 20),
 
             // เมนูมาแรงวันนี้

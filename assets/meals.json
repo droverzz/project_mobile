@@ -55,7 +55,8 @@
         "ใส่ใบกะเพรา ผัดให้เข้ากัน พร้อมเสิร์ฟ"
       ],
       "total_calories": 400,
-      "image_path": "assets/images/pad_krapao.jpg"
+      "image_path": "assets/images/pad_krapao.jpg",
+      "is_llm_generated": false
     },
     {
       "name": "ข้าวผัดไข่",
@@ -112,7 +113,8 @@
         "ใส่ต้นหอม ผัดให้เข้ากัน พร้อมเสิร์ฟ"
       ],
       "total_calories": 300,
-      "image_path": "assets/images/khao_pad_kai.jpg"
+      "image_path": "assets/images/khao_pad_kai.jpg",
+        "is_llm_generated": false
     },
     {
       "name": "แกงเขียวหวานไก่",
@@ -169,7 +171,8 @@
         "ใส่ใบโหระพา พร้อมเสิร์ฟ"
       ],
       "total_calories": 450,
-      "image_path": "assets/images/gang_kiew_wan_kai.jpg"
+      "image_path": "assets/images/gang_kiew_wan_kai.jpg",
+        "is_llm_generated": false
     },
     {
       "name": "ส้มตำไทย",
@@ -237,7 +240,8 @@
         "คลุกเคล้าให้เข้ากัน โรยถั่วลิสง พร้อมเสิร์ฟ"
       ],
       "total_calories": 250,
-      "image_path": "assets/images/som_tum.jpg"
+      "image_path": "assets/images/som_tum.jpg",
+        "is_llm_generated": false
     },
     {
       "name": "ไข่เจียวหมูสับ",
@@ -274,7 +278,8 @@
         "พร้อมเสิร์ฟ"
       ],
       "total_calories": 350,
-      "image_path": "assets/images/kai_jiew.jpg"
+      "image_path": "assets/images/kai_jiew.jpg",
+      "is_llm_generated": false
     }
   ]
 }

@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter_ai_toolkit/flutter_ai_toolkit.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
+
+import '../models/recipe.dart';
 
 class FoodGuru {
   final _provider = GeminiProvider(
@@ -38,11 +42,15 @@ class FoodGuru {
                   SchemaType.array,
                   items: Schema(SchemaType.string),
                   description:
-                      'Do not include leading numbers in the instructions.',
+                      'Always do not include leading numbers in the instructions.',
                 ),
                 'total_calories': Schema(SchemaType.number),
                 'image_path': Schema(SchemaType.string,
                     description: 'Always put "" in this field.'),
+                'is_llm_generated': Schema(
+                  SchemaType.boolean,
+                  description: 'Always put True in this field.',
+                ),
               },
             ),
           },
@@ -51,6 +59,7 @@ class FoodGuru {
       systemInstruction: Content.system('''
           You are an assistant to help recommend food 
           recipes based on user's ingredients.
+          If user provides food names, just find the recipe.
           Prioritize Thai food recipes.
           Respond in Thai language.
           '''),
@@ -58,4 +67,20 @@ class FoodGuru {
   );
 
   GeminiProvider get provider => _provider;
+
+  Future<Recipe> findRecipe(String text) async {
+    final stream = _provider.sendMessageStream(text);
+    final response = await stream.join();
+    final json = jsonDecode(response);
+    return Recipe.fromJson(json['recipe']);
+  }
+
+  Future<List<Recipe>> findRecipes(String text) async {
+    final stream = _provider.sendMessageStream(text);
+    final response = await stream.join();
+    final json = jsonDecode(response);
+    return [
+      Recipe.fromJson(json['recipe']),
+    ];
+  }
 }

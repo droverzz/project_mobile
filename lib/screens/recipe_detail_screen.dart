@@ -89,6 +89,17 @@ class RecipeDetailScreen extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
+                      recipe.isLlmGenerated
+                          ? Text('สร้างโดย Food Guru',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold))
+                          : Text('จากฐานข้อมูล',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold)),
                       SizedBox(height: 10),
                       Text('${recipe.totalCalories} แคล',
                           style: TextStyle(fontSize: 18, color: Colors.grey)),
