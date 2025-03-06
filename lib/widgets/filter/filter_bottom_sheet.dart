@@ -7,16 +7,18 @@ class FilterBottomSheet extends StatefulWidget {
 
 class _FilterBottomSheetState extends State<FilterBottomSheet> {
   List<String> categories = ['สุขภาพ', 'อาหารคีโต', 'มังสวิรัติ', 'ลดน้ำหนัก'];
-  List<String> selectedCategories =
-      []; // เปลี่ยนเป็น List สำหรับเลือกหลายหมวดหมู่
+  List<String> selectedCategories = [];
   RangeValues calorieRange = RangeValues(100, 500);
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    final secondaryColor = theme.colorScheme.secondary;
+
     return Container(
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
-        // color: Colors.white,
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       child: Column(
@@ -28,11 +30,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
             children: [
               Text(
                 'ตัวกรองการค้นหา',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  // color: Colors.black
-                ),
+                style: theme.textTheme.titleLarge,
               ),
               IconButton(
                 icon: Icon(Icons.close),
@@ -41,43 +39,31 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
             ],
           ),
           SizedBox(height: 10),
-          Text('หมวดหมู่',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                // color: Colors.black
-              )),
+          Text('หมวดหมู่', style: theme.textTheme.titleMedium),
           Wrap(
             spacing: 8,
             children: categories.map((category) {
               bool isSelected = selectedCategories.contains(category);
               return ChoiceChip(
-                label: Text(category),
+                label: Text(category, style: TextStyle(color: Colors.white)),
                 selected: isSelected,
                 onSelected: (selected) {
                   setState(() {
                     if (selected) {
-                      selectedCategories.add(category); // เพิ่มหมวดหมู่ที่เลือก
+                      selectedCategories.add(category);
                     } else {
-                      selectedCategories
-                          .remove(category); // ลบหมวดหมู่ที่ยกเลิกการเลือก
+                      selectedCategories.remove(category);
                     }
                   });
                 },
-                // selectedColor: Colors.blue,
-                // backgroundColor: Colors.grey[300],
-                // labelStyle:
-                //     TextStyle(color: isSelected ? Colors.white : Colors.black),
+                selectedColor: secondaryColor,
+                backgroundColor: Color(0xFF858597),
+                shape: StadiumBorder(),
               );
             }).toList(),
           ),
           SizedBox(height: 20),
-          Text('จำนวนแคลอรี่',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                // color: Colors.black
-              )),
+          Text('จำนวนแคลอรี่', style: theme.textTheme.titleMedium),
           RangeSlider(
             values: calorieRange,
             min: 0,
@@ -92,8 +78,8 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                 calorieRange = values;
               });
             },
-            activeColor: Colors.blue,
-            inactiveColor: Colors.grey[300],
+            activeColor: secondaryColor,
+            inactiveColor: isDark ? Colors.white : Colors.grey[300],
           ),
           SizedBox(height: 20),
           Row(
@@ -102,21 +88,23 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
               TextButton(
                 onPressed: () {
                   setState(() {
-                    selectedCategories.clear(); // รีเซ็ตหมวดหมู่ที่เลือก
-                    calorieRange =
-                        RangeValues(100, 500); // รีเซ็ตค่าปริมาณแคลอรี่
+                    selectedCategories.clear();
+                    calorieRange = RangeValues(100, 500);
                   });
                 },
+                style: TextButton.styleFrom(
+                  backgroundColor: Color(0xFF858597),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8)),
+                ),
                 child: Text('ค่าเริ่มต้น',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    )),
+                    style: TextStyle(color: Color(0xFFFCF7F8))),
               ),
               ElevatedButton(
                 onPressed: () => Navigator.pop(context),
                 style: ElevatedButton.styleFrom(
-                  // backgroundColor: Colors.blue,
+                  backgroundColor:
+                      isDark ? Color(0xFFEC4751) : Color(0xFFA31621),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8)),
                 ),

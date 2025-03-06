@@ -26,7 +26,7 @@ final ThemeData lightTheme = ThemeData(
   textTheme: GoogleFonts.kanitTextTheme().copyWith(
     displayLarge: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
     titleLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.black),
-    titleMedium: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.black),
+    titleMedium: TextStyle(fontSize: 18, fontWeight: FontWeight.w400, color: Colors.black),
     bodyLarge: TextStyle(fontSize: 16, color: Colors.black),
     bodyMedium: TextStyle(fontSize: 14, color: Colors.black),
   ),
@@ -65,6 +65,7 @@ final ThemeData darkTheme = ThemeData(
   textTheme: GoogleFonts.kanitTextTheme().copyWith(
     displayLarge: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
     titleLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.white),
+    titleMedium: TextStyle(fontSize: 18, fontWeight: FontWeight.w400, color: Colors.white),
     bodyLarge: TextStyle(fontSize: 16, color: Colors.white),
     bodyMedium: TextStyle(fontSize: 14, color: Colors.white),
   ),

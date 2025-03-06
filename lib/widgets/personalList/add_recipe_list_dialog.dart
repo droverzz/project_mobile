@@ -11,8 +11,6 @@ class AddPlaylistDialog extends StatelessWidget {
     TextEditingController controller = TextEditingController();
 
     return AlertDialog(
-      // ignore: deprecated_member_use
-      backgroundColor: theme.dialogBackgroundColor,
       title: Text(
         "ตั้งชื่อ Playlist",
         style:

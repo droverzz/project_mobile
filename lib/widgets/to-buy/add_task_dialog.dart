@@ -11,7 +11,11 @@ class AddTaskDialog extends StatelessWidget {
     TextEditingController controller = TextEditingController();
 
     return AlertDialog(
-      title: Text('เพิ่มแผนของฉัน'),
+      title: Text(
+        'เพิ่มแผนของฉัน',
+        style:
+            theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+      ),
       content: TextField(
         controller: controller,
         decoration: InputDecoration(

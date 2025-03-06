@@ -14,7 +14,6 @@ class EditPlaylistDialog extends StatelessWidget {
     TextEditingController controller = TextEditingController(text: initialName);
 
     return AlertDialog(
-      backgroundColor: theme.dialogBackgroundColor,
       title: Text(
         "แก้ไขชื่อ Playlist",
         style:
