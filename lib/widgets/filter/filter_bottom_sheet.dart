@@ -16,7 +16,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
     return Container(
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        // color: Colors.white,
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       child: Column(
@@ -29,12 +29,13 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
               Text(
                 'ตัวกรองการค้นหา',
                 style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  // color: Colors.black
+                ),
               ),
               IconButton(
-                icon: Icon(Icons.close, color: Colors.black),
+                icon: Icon(Icons.close),
                 onPressed: () => Navigator.pop(context),
               ),
             ],
@@ -42,9 +43,10 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
           SizedBox(height: 10),
           Text('หมวดหมู่',
               style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black)),
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                // color: Colors.black
+              )),
           Wrap(
             spacing: 8,
             children: categories.map((category) {
@@ -62,19 +64,20 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                     }
                   });
                 },
-                selectedColor: Colors.blue,
-                backgroundColor: Colors.grey[300],
-                labelStyle:
-                    TextStyle(color: isSelected ? Colors.white : Colors.black),
+                // selectedColor: Colors.blue,
+                // backgroundColor: Colors.grey[300],
+                // labelStyle:
+                //     TextStyle(color: isSelected ? Colors.white : Colors.black),
               );
             }).toList(),
           ),
           SizedBox(height: 20),
           Text('จำนวนแคลอรี่',
               style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black)),
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                // color: Colors.black
+              )),
           RangeSlider(
             values: calorieRange,
             min: 0,
@@ -104,13 +107,16 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                         RangeValues(100, 500); // รีเซ็ตค่าปริมาณแคลอรี่
                   });
                 },
-                child:
-                    Text('ค่าเริ่มต้น', style: TextStyle(color: Colors.black)),
+                child: Text('ค่าเริ่มต้น',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    )),
               ),
               ElevatedButton(
                 onPressed: () => Navigator.pop(context),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
+                  // backgroundColor: Colors.blue,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8)),
                 ),
