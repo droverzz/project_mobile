@@ -170,8 +170,7 @@ class _ToDoListState extends State<ToDoList> {
             )
           : Padding(
               padding: EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: ListView(
                 children: [
                   if (tasks.isNotEmpty) ...[
                     Text('ต้องทำ (${tasks.length})',

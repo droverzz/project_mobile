@@ -136,6 +136,8 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
             ),
             child: BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
+              enableFeedback: false,
+              selectedFontSize: 14,
               selectedItemColor: bottomNavTheme.selectedItemColor,
               unselectedItemColor: bottomNavTheme.unselectedItemColor,
               items: const [

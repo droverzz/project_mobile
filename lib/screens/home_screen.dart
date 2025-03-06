@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_group_project/helpers/menu_db.dart';
-import 'package:flutter_application_group_project/models/recipe.dart';
-import 'package:flutter_application_group_project/screens/recipe_detail_screen.dart';
+// import 'package:flutter_application_group_project/models/recipe.dart';
+// import 'package:flutter_application_group_project/screens/recipe_detail_screen.dart';
 import 'package:flutter_application_group_project/widgets/recipe_card.dart';
 import 'package:flutter_application_group_project/widgets/search/search_food.dart';
 import 'package:google_fonts/google_fonts.dart';
