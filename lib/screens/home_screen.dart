@@ -5,6 +5,7 @@ import 'package:flutter_application_group_project/screens/recipe_detail_screen.d
 import 'package:flutter_application_group_project/widgets/recipe_card.dart';
 import 'package:flutter_application_group_project/widgets/search/search_food.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_application_group_project/widgets/filter/filter_bottom_sheet.dart'; // นำเข้า FilterBottomSheet
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -21,9 +22,18 @@ class HomeScreen extends StatelessWidget {
           'หน้าแรก',
           style: theme.textTheme.headlineSmall?.copyWith(
             color: theme.colorScheme.onSurface, // ใช้สีของ primary color
-          ), // ใช้ theme text
+          ),
         ),
         centerTitle: false,
+        actions: [
+          // เพิ่มปุ่มที่มุมขวาบนของแอป
+          IconButton(
+            icon: Icon(Icons.filter_alt,
+                color: theme.iconTheme.color), // เปลี่ยนไอคอนเป็น filter
+            onPressed: () => _showFilterBottomSheet(
+                context), // เรียกฟังก์ชันเพื่อแสดง FilterBottomSheet
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -32,11 +42,16 @@ class HomeScreen extends StatelessWidget {
           children: [
             // Search Bar
             Container(
-                decoration: BoxDecoration(
-                  color: theme.cardColor, // ใช้สีของ theme
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: SearchFood(initialKeyword: "")),
+              decoration: BoxDecoration(
+                color: theme.cardColor, // ใช้สีของ theme
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: GestureDetector(
+                onTap: () => _showFilterBottomSheet(
+                    context), // เรียกฟังก์ชันเพื่อแสดง FilterBottomSheet
+                child: SearchFood(initialKeyword: ""),
+              ),
+            ),
             SizedBox(height: 20),
 
             // เมนูมาแรงวันนี้
@@ -87,6 +102,16 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  // ฟังก์ชันสำหรับแสดง FilterBottomSheet
+  void _showFilterBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return FilterBottomSheet(); // แสดง FilterBottomSheet
+      },
     );
   }
 
